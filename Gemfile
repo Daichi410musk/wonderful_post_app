@@ -3,35 +3,42 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.4.4"
 
-# Rails本体を7系にする（ここが一番大事）
+# --- Rails core ---
 gem "rails", "~> 7.1.0"
-
-# Rails 7 に合わせる
 gem "rails-i18n", "~> 7.0"
 
+# --- Authentication ---
 gem "devise"
 gem "devise-i18n"
 
-# DB
-gem "pg", "~> 1.1"
+# --- Database ---
+gem "pg", "~> 1.5"
 
-# Webサーバ
-gem "puma", "~> 5.0"
+# --- Web server ---
+gem "puma", "~> 6.4"
 
-# Rails 7ならsass-railsよりこっちのほうが無難
+# --- Assets / Styles ---
 gem "sassc-rails"
 
-# いったんWebpackerは残しておく（後でjsbundlingに移行でもOK）
+# --- JavaScript / Frontend ---
+# Rails 7ではwebpackerは非推奨。
+# 一時的に動かすならwebpackerを残してもOKだが、
+# 将来的には jsbundling-rails に移行推奨。
 gem "webpacker", "~> 5.0"
+# gem "jsbundling-rails"   # ← 乗り換えるときはこちらに変更
 
-# turbolinksは古いから一旦外すか、後で turbo-rails 入れる
-# gem "turbolinks", "~> 5"
-gem "turbo-rails"
+# --- Turbo / Hotwire ---
+gem "turbo-rails", "~> 2.0"
 
+# --- JSON / Utilities ---
 gem "jbuilder", "~> 2.7"
-
 gem "bootsnap", ">= 1.4.4", require: false
 
+# --- Pagination ---
+gem "kaminari"
+gem "kaminari-i18n"
+
+# --- Development / Debugging ---
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "pry-byebug"
@@ -45,7 +52,6 @@ group :development do
   gem "listen", "~> 3.3"
 end
 
+# --- Windows support (無視可) ---
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "kaminari"
-gem "kaminari-i18n"
