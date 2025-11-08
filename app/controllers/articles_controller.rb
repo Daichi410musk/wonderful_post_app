@@ -16,7 +16,6 @@ class ArticlesController < ApplicationController
 
   @articles = @articles.page(params[:page]).per(10)
 end
-  end
 
   # GET /articles/mypage
   def mypage
