@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>記事一覧</h1>
+
+<!-- ▼検索フォーム -->
+<%= form_with url: articles_path, method: :get, local: true, class: "mb-3" do |f| %>
+  <div class="input-group">
+    <%= f.text_field :title, value: params[:title], class: "form-control", placeholder: "タイトルで検索" %>
+    <button class="btn btn-primary" type="submit">検索</button>
+  </div>
+<% end %>
+<!-- ▲検索フォーム -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">タイトル</th>
+      <th scope="col">内容</th>
+      <th scope="col">タグ</th>  <!-- ←追加 -->
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= truncate(article.content, length: 50) %></td>
+        <td>
+          <% article.tags.each do |tag| %>
+            <span class="badge bg-secondary"><%= tag.name %></span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to '詳細', article, class: "btn btn-success" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @articles, params: { title: params[:title] } %>

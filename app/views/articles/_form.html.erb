@@ -1,0 +1,42 @@
+<%= form_with(model: article, local: true) do |form| %>
+  <% if article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= article.errors.count %> 件の対応が必要です</h2>
+      <ul>
+        <% article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %><br>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field mb-3">
+    <%= form.label :content, class: "form-label" %><br>
+    <%= form.text_area :content, class: "form-control" %>
+  </div>
+
+  <!-- ここでタグを選べるようにする -->
+  <div class="mb-3">
+    <p class="form-label">タグ</p>
+    <% Tag.all.each do |tag| %>
+      <div class="form-check form-check-inline">
+        <%= check_box_tag "article[tag_ids][]",
+                          tag.id,
+                          article.tags.include?(tag),
+                          id: "article_tag_#{tag.id}",
+                          class: "form-check-input" %>
+        <%= label_tag "article_tag_#{tag.id}", tag.name, class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+  <!-- ここまで -->
+
+  <div class="actions">
+    <%= form.submit '保存', class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -23,6 +23,12 @@ module WonderfulPostApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+     # ▼ タイムゾーンを日本時間(JST)にする
+    config.time_zone = 'Tokyo'
+    # DBに保存・読み書きする時刻も日本時間基準にする
+    config.active_record.default_timezone = :local
+    # ▼ デフォルト言語を日本語にする
+    config.i18n.default_locale = :ja
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -34,5 +40,13 @@ module WonderfulPostApp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+  g.jbuilder false
+  g.javascripts false
+  g.stylesheets false
+  g.helper false
+  g.test_framework false
+end
   end
 end

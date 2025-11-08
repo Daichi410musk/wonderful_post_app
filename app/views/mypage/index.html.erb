@@ -1,0 +1,21 @@
+<h1>マイページ</h1>
+<p><%= current_user.email %> さんの記事一覧</p>
+
+<!-- ▼ 検索フォーム -->
+<%= form_with url: mypage_path, method: :get, local: true, class: "mb-3" do |f| %>
+  <div class="input-group">
+    <%= f.text_field :title, value: params[:title], class: "form-control", placeholder: "タイトルで検索" %>
+    <button class="btn btn-primary" type="submit">検索</button>
+  </div>
+<% end %>
+
+<% if @articles.present? %>
+  <% @articles.each do |article| %>
+    <p><%= link_to article.title, article_path(article) %></p>
+  <% end %>
+
+  <!-- ▼ ページネーション（検索条件を保持） -->
+  <%= paginate @articles, params: { title: params[:title] } %>
+<% else %>
+  <p>まだ記事はありません。</p>
+<% end %>

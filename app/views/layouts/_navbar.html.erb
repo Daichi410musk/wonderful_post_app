@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="padding: 8px 16px;">
+  <div class="container-fluid">
+
+    <!-- 左側: TOPへのリンク -->
+    <%= link_to "TOP", root_path,
+        class: "navbar-brand",
+        style: "font-weight: bold; font-size: 18px; text-decoration: none;" %>
+
+    <!-- 右側: 認証ボタン -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto"
+          style="display: flex; gap: 12px; margin: 0; padding: 0; list-style: none;">
+
+        <% if user_signed_in? %>
+          <!-- ✅ ログイン済みのときだけマイページを表示 -->
+          <li class="nav-item" style="list-style: none;">
+            <%= link_to "マイページ",
+                  mypage_path,
+                  class: "btn btn-outline-success btn-sm",
+                  style: "text-decoration: none;" %>
+          </li>
+
+          <!-- ログアウトボタン -->
+          <li class="nav-item" style="list-style: none;">
+            <%= button_to "ログアウト",
+                  destroy_user_session_path,
+                  method: :delete,
+                  class: "btn btn-outline-secondary btn-sm",
+                  form: { class: "d-inline" } %>
+          </li>
+
+        <% else %>
+          <!-- 未ログインのときだけ表示 -->
+          <li class="nav-item" style="list-style: none;">
+            <%= link_to "サインアップ",
+                  new_user_registration_path,
+                  class: "btn btn-primary btn-sm",
+                  style: "text-decoration: none; color: black;" %>
+          </li>
+
+          <li class="nav-item" style="list-style: none;">
+            <%= link_to "ログイン",
+                  new_user_session_path,
+                  class: "btn btn-outline-primary btn-sm",
+                  style: "text-decoration: none;" %>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
