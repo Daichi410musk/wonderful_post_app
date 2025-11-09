@@ -16,6 +16,12 @@ services:
         fromDatabase:
           name: postgresql-wonderful-editor
           property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "1"
+      - key: RAILS_LOG_TO_STDOUT
+        value: "1"
     autoDeploy: false
 
 databases:
