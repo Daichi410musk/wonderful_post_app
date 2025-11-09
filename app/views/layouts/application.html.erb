@@ -6,15 +6,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- 今回はWebpackerに寄せる -->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   </head>
 
   <body>
-  <%= render partial: "layouts/navbar" %>
-  <div class="container">
-    <%= yield %>
+    <%= render partial: "layouts/navbar" %>
+    <div class="container">
+      <%= yield %>
     </div>
+
+    <!-- JSもちゃんと読み込む。これがないと本番で差が出る -->
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload', defer: true %>
   </body>
 </html>
+
