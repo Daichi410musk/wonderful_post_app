@@ -6,7 +6,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- 今回はWebpackerに寄せる -->
+    <!-- Sprockets側（app/assets/...） -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+    <!-- Webpacker側（app/javascript/packs/...） -->
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   </head>
 
@@ -16,8 +19,8 @@
       <%= yield %>
     </div>
 
-    <!-- JSもちゃんと読み込む。これがないと本番で差が出る -->
     <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload', defer: true %>
   </body>
 </html>
+
 

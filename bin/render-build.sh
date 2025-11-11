@@ -7,6 +7,8 @@ bundle install
 # 2. JSパッケージ入れる（Webpacker用）
 yarn install --check-files
 
+RAILS_ENV=production bundle exec rails webpacker:compile
+
 # 3. 本番用にアセットをビルド
 RAILS_ENV=production bundle exec rails assets:precompile
 
